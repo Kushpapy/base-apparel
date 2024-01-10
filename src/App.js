@@ -72,6 +72,8 @@ function Form() {
     } else {
       setIsInvalid(true);
     }
+
+    isValid ? setInputValue("") : setInputValue(inputValue);
   }
   return (
     <form

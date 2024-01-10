@@ -63,24 +63,28 @@ function Form() {
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,6}|\.{2,6})$/;
   const isValid = emailRegex.test(inputValue);
+  const [isInvalid, setIsInvalid] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      console.log("The email address is valid.");
+      setIsInvalid(false);
     } else {
-      console.log("The email address is invalid.");
+      setIsInvalid(true);
     }
   }
   return (
-    <form className={`form ${isValid ? "" : "error"}`} onSubmit={handleSubmit}>
+    <form
+      className={`form ${isInvalid ? "error" : ""}`}
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         placeholder=" Email Address"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       ></input>
-      {!isValid && (
+      {isInvalid && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -107,7 +111,7 @@ function Form() {
           />
         </svg>
       </button>
-      {!isValid && <p>Please provide a valid email!</p>}
+      {isInvalid && <p>Please provide a valid email!</p>}
     </form>
   );
 }
